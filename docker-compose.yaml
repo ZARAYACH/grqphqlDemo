@@ -1,0 +1,27 @@
+services:
+  pfmBackend:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    environment:
+      - DB_HOST=
+      - DB_PORT=
+      - DB_USER=
+      - DB_PASSWORD=
+      - PORT=80
+  webserver:
+    image: nginx:1.27.3-alpine
+    ports:
+      - 80:80
+      - 443:443
+    restart: always
+    volumes:
+      - ./nginx/conf/:/etc/nginx/conf.d/:ro
+      - ./certbot/conf/:/etc/certbot/conf:ro
+  certbot:
+    image: certbot/certbot:latest
+    volumes:
+      - ./certbot/www/:/var/www/certbot/:rw
+      - ./certbot/conf/:/etc/letsencrypt/:rw
+#    command: certonly --webroot --webroot-path=/var/www/html --email XXX --agree-tos --no-eff-email --force-renewal -d XXX.de
+

@@ -1,0 +1,40 @@
+schema {
+    query: Query
+    mutation: Mutation
+    subscription: Subscription
+}
+
+type Query {
+    events : [Event]
+    eventById(id : ID!) : Event
+}
+
+type Mutation {
+    create(eventInput : EventInput!) : Event
+    modify(id : ID!,eventInput : EventInput!) : Event
+    delete(id: ID!) : Boolean
+}
+
+type Subscription {
+    notify(id: ID) : Event
+}
+
+input EventInput{
+    name : String!,
+    description : String,
+    type : String!,
+    time : String
+    location: String,
+}
+
+type Event {
+    id : ID!,
+    name : String!,
+    description : String,
+    type : String!,
+    time : String
+    locations : String,
+    createdAt : String
+    updatedAt : String,
+    location: String,
+}

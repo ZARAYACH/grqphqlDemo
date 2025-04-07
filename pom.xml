@@ -10,7 +10,7 @@
     </parent>
     <groupId>com.websemantique</groupId>
     <artifactId>graphqlProjet</artifactId>
-    <version>0.0.3</version>
+    <version>0.0.4-SNAPSHOT</version>
     <name>miniProjet</name>
     <description>Demo project for Spring Boot</description>
     <url/>

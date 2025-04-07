@@ -1,9 +1,7 @@
-package com.websemantique.graphql;
+package com.websemantique.graphql.event;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.websemantique.graphql.organiser.Organiser;
+import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -32,12 +30,16 @@ public class Event {
     @UpdateTimestamp
     private LocalDateTime updatedAt;
 
+    @ManyToOne
+    private Organiser organiser;
+
     public record EventInput(
             String name,
             String description,
             String type,
             LocalDateTime time,
-            String location
+            String location,
+            Long organiserId
     ) {
     }
 }

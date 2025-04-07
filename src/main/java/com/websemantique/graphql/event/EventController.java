@@ -1,4 +1,4 @@
-package com.websemantique.graphql;
+package com.websemantique.graphql.event;
 
 import com.websemantique.graphql.exception.NotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -26,22 +26,20 @@ public class EventController {
     }
 
     @MutationMapping
-    public Event create(@Argument Event.EventInput eventInput) {
+    public Event createEvent(@Argument Event.EventInput eventInput) throws NotFoundException {
         return eventService.create(eventInput);
     }
 
     @MutationMapping
-    public Event modify(@Argument Long id, @Argument Event.EventInput eventInput) throws NotFoundException {
+    public Event modifyEvent(@Argument Long id, @Argument Event.EventInput eventInput) throws NotFoundException {
         Event event = eventService.findById(id);
         return eventService.modify(event, eventInput);
     }
 
     @MutationMapping
-    public Boolean delete(@Argument Long id) throws NotFoundException {
+    public Boolean deleteEvent(@Argument Long id) throws NotFoundException {
         Event event = eventService.findById(id);
         eventService.delete(event);
         return true;
     }
-
-
 }

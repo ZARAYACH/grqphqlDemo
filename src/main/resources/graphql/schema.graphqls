@@ -1,18 +1,22 @@
-schema {
-    query: Query
-    mutation: Mutation
-    subscription: Subscription
-}
+scalar LocalDateTime
+
 
 type Query {
     events : [Event]
     eventById(id : ID!) : Event
+
+    organisers: [Organiser]
+    organiserById(id: ID!): Organiser
 }
 
 type Mutation {
-    create(eventInput : EventInput!) : Event
-    modify(id : ID!,eventInput : EventInput!) : Event
-    delete(id: ID!) : Boolean
+    createEvent(eventInput : EventInput!) : Event
+    modifyEvent(id : ID!, eventInput : EventInput!) : Event
+    deleteEvent(id: ID!) : Boolean
+
+    createOrganiser(organiserInput : OrganiserInput!) : Organiser
+    modifyOrganiser(id :ID!, organiserInput : OrganiserInput!) : Organiser
+    deleteOrganiser(id: ID!) : Boolean
 }
 
 type Subscription {
@@ -20,21 +24,31 @@ type Subscription {
 }
 
 input EventInput{
-    name : String!,
-    description : String,
-    type : String!,
-    time : String
-    location: String,
+    organiserId : ID
+    name : String!
+    description : String!
+    type : String!
+    time : LocalDateTime!
+    location: String!
 }
 
 type Event {
-    id : ID!,
-    name : String!,
-    description : String,
-    type : String!,
+    id : ID!
+    name : String!
+    description : String
+    type : String!
     time : String
-    locations : String,
-    createdAt : String
-    updatedAt : String,
-    location: String,
+    location : String
+    createdAt : LocalDateTime
+    updatedAt : LocalDateTime
+    organiser : Organiser
+}
+
+type Organiser {
+    id :ID!
+    name : String!
+    events : [Event]
+}
+input OrganiserInput {
+    name: String!
 }
